@@ -1,130 +1,178 @@
 export const BARANGAY = {
-  name: "Barangay San Juan",
-  municipality: "Lungsod ng Maynila",
+  name: "Barangay Maanahao",
+  municipality: "Palanas, Masbate",
   tagline: "Serbisyong Tapat, Barangay na Maunlad",
-  established: 1954,
-  population: 12450,
-  landArea: "1.8 km²",
-  puroks: 12,
-  address: "123 Barangay Hall St., Brgy. San Juan, Maynila",
+  established: 1965,
+  population: 3420,
+  landArea: "2.4 km²",
+  puroks: 7,
+  address: "Brgy. Maanahao, Palanas, Masbate",
   officeHours: "Lunes–Biyernes, 8:00 AM – 5:00 PM",
-  facebook: "https://facebook.com/BarangaySanJuan",
-  email: "barangay@sanjuan.gov.ph",
-  phone: "(02) 8123-4567",
+  facebook: "https://facebook.com/BarangayMaanahao",
+  email: "barangaymaanahao@gmail.com",
+  phone: "0917-123-4567",
 } as const;
 
 export interface Announcement {
   id: number;
-  title: string;
+  titleBcl: string;
+  titleEn: string;
+  titleFil: string;
   date: string;
   category: string;
-  excerpt: string;
+  excerptBcl: string;
+  excerptEn: string;
+  excerptFil: string;
 }
 
 export const announcements: Announcement[] = [
   {
     id: 1,
-    title: "LIBRENG VACCINATION DRIVE para sa mga Bata at Senior",
+    titleBcl: "LIBRENG BAKUNA para sa mga Aki asin Senior",
+    titleEn: "FREE VACCINATION DRIVE for Children & Seniors",
+    titleFil: "LIBRENG VACCINATION DRIVE para sa mga Bata at Senior",
     date: "Hulyo 10, 2026",
     category: "Kalusugan",
-    excerpt:
-      "Magsasagawa ang Barangay San Juan ng libreng vaccination drive sa pakikipagtulungan ng City Health Office. Unahin ang inyong mga anak at nakatatanda.",
+    excerptBcl: "Maggibo an Barangay Maanahao nin libreng vaccination drive kaiba an City Health Office. Prioridad an mga aki asin gurang.",
+    excerptEn: "Barangay Maanahao will conduct a free vaccination drive in partnership with the City Health Office. Prioritize your children and elderly.",
+    excerptFil: "Magsasagawa ang Barangay Maanahao ng libreng vaccination drive sa pakikipagtulungan ng City Health Office. Unahin ang inyong mga anak at nakatatanda.",
   },
   {
     id: 2,
-    title: "PAGWAWAGAS ng DENGUE: Schedule para sa Hulyo",
+    titleBcl: "PAGFOGGING kontra DENGUE: Iskedyul para sa Hulyo",
+    titleEn: "DENGUE FOGGING: Schedule for July",
+    titleFil: "PAGWAWAGAS ng DENGUE: Schedule para sa Hulyo",
     date: "Hulyo 5, 2026",
     category: "Pampubliko",
-    excerpt:
-      "Ang monthly fogging operation ay isasagawa sa lahat ng purok. Pakisiguraduhing sarado ang mga bintana at nasa loob ng bahay ang mga bata.",
+    excerptBcl: "An monthly fogging gigibuhon sa gabos na purok. Pakisiguradong nakasara an mga bintana asin yaon sa laog kan harong an mga aki.",
+    excerptEn: "The monthly fogging operation will be conducted in all puroks. Please ensure windows are closed and children stay indoors.",
+    excerptFil: "Ang monthly fogging operation ay isasagawa sa lahat ng purok. Pakisiguraduhing sarado ang mga bintana at nasa loob ng bahay ang mga bata.",
   },
   {
     id: 3,
-    title: "FIRST-TIME JOB SEEKER CERTIFICATE — Dali Lang!",
+    titleBcl: "CERTIFICATE para sa FIRST-TIME JOB SEEKER — Madali Lang!",
+    titleEn: "FIRST-TIME JOB SEEKER CERTIFICATE — Easy!",
+    titleFil: "FIRST-TIME JOB SEEKER CERTIFICATE — Dali Lang!",
     date: "Hunyo 28, 2026",
     category: "Serbisyo",
-    excerpt:
-      "Alamin ang requirements at proseso para sa First-Time Job Seeker Certificate. Libre ito sa ilalim ng Batas Republika 11261.",
+    excerptBcl: "Aramon an mga requirements asin proseso para sa First-Time Job Seeker Certificate. Libre ini sa irarom kan Batas Republika 11261.",
+    excerptEn: "Learn the requirements and process for the First-Time Job Seeker Certificate. It's free under Republic Act 11261.",
+    excerptFil: "Alamin ang requirements at proseso para sa First-Time Job Seeker Certificate. Libre ito sa ilalim ng Batas Republika 11261.",
   },
   {
     id: 4,
-    title: "BAWAL ANG JUETENG at ILEGAL NA SUGAL",
+    titleBcl: "BAWAL AN JUETENG ASIN ILEGAL NA SUGAL",
+    titleEn: "JUETENG AND ILLEGAL GAMBLING ARE PROHIBITED",
+    titleFil: "BAWAL ANG JUETENG AT ILEGAL NA SUGAL",
     date: "Hunyo 20, 2026",
     category: "Ordinansa",
-    excerpt:
-      "Mahigpit na ipinapatupad ng barangay ang ordinansa kontra ilegal na sugal. Mangyaring i-report ang anumang kahina-hinalang aktibidad sa barangay hall.",
+    excerptBcl: "Mahigpit na ipinapatupad kan barangay an ordinansa kontra ilegal na sugal. Pakireport an ano man na kahina-hinalang aktibidad sa barangay hall.",
+    excerptEn: "The barangay strictly enforces the ordinance against illegal gambling. Please report any suspicious activity to the barangay hall.",
+    excerptFil: "Mahigpit na ipinapatupad ng barangay ang ordinansa kontra ilegal na sugal. Mangyaring i-report ang anumang kahina-hinalang aktibidad sa barangay hall.",
   },
 ];
 
 export interface Service {
-  title: string;
-  description: string;
+  titleBcl: string;
+  titleEn: string;
+  titleFil: string;
+  descBcl: string;
+  descEn: string;
+  descFil: string;
   icon: string;
 }
 
 export const services: Service[] = [
   {
-    title: "Barangay Clearance",
-    description: "Kinakailangan para sa trabaho, negosyo, at iba pang transaksyon.",
+    titleBcl: "Barangay Clearance",
+    titleEn: "Barangay Clearance",
+    titleFil: "Barangay Clearance",
+    descBcl: "Kinakaipuhan para sa trabaho, negosyo, asin iba pang transaksyon.",
+    descEn: "Required for employment, business, and other transactions.",
+    descFil: "Kinakailangan para sa trabaho, negosyo, at iba pang transaksyon.",
     icon: "📋",
   },
   {
-    title: "Certificate of Indigency",
-    description: "Para sa medical assistance, scholarship, at iba pang benepisyo.",
+    titleBcl: "Certificate of Indigency",
+    titleEn: "Certificate of Indigency",
+    titleFil: "Certificate of Indigency",
+    descBcl: "Para sa medical assistance, scholarship, asin iba pang benepisyo.",
+    descEn: "For medical assistance, scholarship, and other benefits.",
+    descFil: "Para sa medical assistance, scholarship, at iba pang benepisyo.",
     icon: "🪪",
   },
   {
-    title: "Business Permit",
-    description: "Rehistro at renewal ng permit para sa maliit at malaking negosyo.",
+    titleBcl: "Business Permit",
+    titleEn: "Business Permit",
+    titleFil: "Business Permit",
+    descBcl: "Rehistro asin renewal kan permit para sa sadit asin dakulang negosyo.",
+    descEn: "Registration and renewal of permits for small and large businesses.",
+    descFil: "Rehistro at renewal ng permit para sa maliit at malaking negosyo.",
     icon: "🏪",
   },
   {
-    title: "Blotter / Report",
-    description: "Mag-report ng insidente, reklamo, o emergency sa barangay hall.",
+    titleBcl: "Blotter / Report",
+    titleEn: "Blotter / Report",
+    titleFil: "Blotter / Report",
+    descBcl: "Mag-report kan insidente, reklamo, o emergency sa barangay hall.",
+    descEn: "Report an incident, complaint, or emergency to the barangay hall.",
+    descFil: "Mag-report ng insidente, reklamo, o emergency sa barangay hall.",
     icon: "📝",
   },
   {
-    title: "Health Center",
-    description: "Konsulta, check-up, at gamutan sa ating Barangay Health Center.",
+    titleBcl: "Health Center",
+    titleEn: "Health Center",
+    titleFil: "Health Center",
+    descBcl: "Konsulta, check-up, asin bulong sa satuyang Barangay Health Center.",
+    descEn: "Consultation, check-up, and treatment at our Barangay Health Center.",
+    descFil: "Konsulta, check-up, at gamutan sa ating Barangay Health Center.",
     icon: "🏥",
   },
   {
-    title: "Cedula (Community Tax)",
-    description: "Pagkuha ng community tax certificate para sa mga legal na dokumento.",
+    titleBcl: "Cedula (Community Tax)",
+    titleEn: "Cedula (Community Tax)",
+    titleFil: "Cedula (Community Tax)",
+    descBcl: "Pagkuha kan community tax certificate para sa mga legal na dokumento.",
+    descEn: "Get your community tax certificate for legal documents.",
+    descFil: "Pagkuha ng community tax certificate para sa mga legal na dokumento.",
     icon: "📄",
   },
 ];
 
 export interface Official {
   name: string;
-  position: string;
+  positionBcl: string;
+  positionEn: string;
+  positionFil: string;
   image: string;
 }
 
 export const officials: Official[] = [
-  { name: "Juan M. Dela Cruz", position: "Punong Barangay", image: "" },
-  { name: "Maria L. Santos", position: "Kagawad", image: "" },
-  { name: "Pedro R. Reyes", position: "Kagawad", image: "" },
-  { name: "Ana C. Gonzales", position: "Kagawad", image: "" },
-  { name: "Josefina B. Lopez", position: "Kagawad", image: "" },
-  { name: "Carlos T. Rivera", position: "Kagawad", image: "" },
-  { name: "Luzviminda D. Cruz", position: "Kagawad", image: "" },
-  { name: "Ramon G. Flores", position: "Kagawad", image: "" },
-  { name: "Mark Anthony B. Tan", position: "SK Chairman", image: "" },
-  { name: "Diana M. Ramos", position: "Barangay Secretary", image: "" },
-  { name: "Jose R. Mercado", position: "Barangay Treasurer", image: "" },
+  { name: "Juan M. Dela Cruz", positionBcl: "Punong Barangay", positionEn: "Barangay Captain", positionFil: "Punong Barangay", image: "" },
+  { name: "Maria L. Santos", positionBcl: "Kagawad", positionEn: "Councilor", positionFil: "Kagawad", image: "" },
+  { name: "Pedro R. Reyes", positionBcl: "Kagawad", positionEn: "Councilor", positionFil: "Kagawad", image: "" },
+  { name: "Ana C. Gonzales", positionBcl: "Kagawad", positionEn: "Councilor", positionFil: "Kagawad", image: "" },
+  { name: "Josefina B. Lopez", positionBcl: "Kagawad", positionEn: "Councilor", positionFil: "Kagawad", image: "" },
+  { name: "Carlos T. Rivera", positionBcl: "Kagawad", positionEn: "Councilor", positionFil: "Kagawad", image: "" },
+  { name: "Luzviminda D. Cruz", positionBcl: "Kagawad", positionEn: "Councilor", positionFil: "Kagawad", image: "" },
+  { name: "Ramon G. Flores", positionBcl: "Kagawad", positionEn: "Councilor", positionFil: "Kagawad", image: "" },
+  { name: "Mark Anthony B. Tan", positionBcl: "SK Chairman", positionEn: "SK Chairman", positionFil: "SK Chairman", image: "" },
+  { name: "Diana M. Ramos", positionBcl: "Sekretarya", positionEn: "Secretary", positionFil: "Kalihim", image: "" },
+  { name: "Jose R. Mercado", positionBcl: "Tesorero", positionEn: "Treasurer", positionFil: "Tesorero", image: "" },
 ];
 
 export interface EmergencyContact {
-  name: string;
+  nameBcl: string;
+  nameEn: string;
+  nameFil: string;
   number: string;
   icon: string;
 }
 
 export const emergencyContacts: EmergencyContact[] = [
-  { name: "Barangay Tanod", number: "0917-123-4567", icon: "🛡️" },
-  { name: "Pulisya (MPS)", number: "0928-765-4321", icon: "🚔" },
-  { name: "Bumbero (BFP)", number: "0939-555-1111", icon: "🚒" },
-  { name: "Barangay Health Center", number: "0948-333-2222", icon: "🏥" },
-  { name: "Disaster Response (DRRM)", number: "0956-777-8888", icon: "🚨" },
+  { nameBcl: "Barangay Tanod", nameEn: "Barangay Tanod", nameFil: "Barangay Tanod", number: "0917-123-4567", icon: "🛡️" },
+  { nameBcl: "Pulisya (MPS)", nameEn: "Police (MPS)", nameFil: "Pulisya (MPS)", number: "0928-765-4321", icon: "🚔" },
+  { nameBcl: "Bumbero (BFP)", nameEn: "Fire (BFP)", nameFil: "Bumbero (BFP)", number: "0939-555-1111", icon: "🚒" },
+  { nameBcl: "Barangay Health Center", nameEn: "Barangay Health Center", nameFil: "Barangay Health Center", number: "0948-333-2222", icon: "🏥" },
+  { nameBcl: "Disaster Response (DRRM)", nameEn: "Disaster Response (DRRM)", nameFil: "Disaster Response (DRRM)", number: "0956-777-8888", icon: "🚨" },
 ];

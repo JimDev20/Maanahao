@@ -1,18 +1,22 @@
+import { useLang } from "../lib/LanguageContext";
+import { t } from "../lib/translations";
 import { officials } from "../lib/data";
 
 export default function Officials() {
+  const { lang } = useLang();
+
   return (
     <section id="officials" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">
-            Barangay Council
+            {t.officialsLabel[lang]}
           </span>
           <h2 className="mt-1 text-2xl sm:text-3xl font-bold text-neutral-900">
-            Ang Inyong mga Opisyal
+            {t.officialsTitle[lang]}
           </h2>
           <p className="mt-2 text-neutral-500 max-w-lg mx-auto">
-            Ang inyong lingkod-bayan, handang maglingkod anumang oras.
+            {t.officialsSubtitle[lang]}
           </p>
         </div>
 
@@ -28,7 +32,7 @@ export default function Officials() {
                 {official.name}
               </h3>
               <p className="text-xs sm:text-sm text-primary font-medium">
-                {official.position}
+                {lang === "bcl" ? official.positionBcl : lang === "en" ? official.positionEn : official.positionFil}
               </p>
             </div>
           ))}

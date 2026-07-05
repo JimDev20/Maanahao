@@ -1,3 +1,5 @@
+import { useLang } from "../lib/LanguageContext";
+import { t } from "../lib/translations";
 import { announcements } from "../lib/data";
 
 const categoryColors: Record<string, string> = {
@@ -8,16 +10,18 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function Announcements() {
+  const { lang } = useLang();
+
   return (
     <section id="announcements" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-end justify-between mb-10">
           <div>
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Barangay News
+              {t.announcementsLabel[lang]}
             </span>
             <h2 className="mt-1 text-2xl sm:text-3xl font-bold text-neutral-900">
-              Mga Anunsyo at Balita
+              {t.announcementsTitle[lang]}
             </h2>
           </div>
         </div>
@@ -39,10 +43,10 @@ export default function Announcements() {
                 <span className="text-xs text-neutral-400">{item.date}</span>
               </div>
               <h3 className="font-semibold text-neutral-900 leading-snug mb-2 group-hover:text-primary transition-colors">
-                {item.title}
+                {lang === "bcl" ? item.titleBcl : lang === "en" ? item.titleEn : item.titleFil}
               </h3>
               <p className="text-sm text-neutral-500 leading-relaxed line-clamp-3">
-                {item.excerpt}
+                {lang === "bcl" ? item.excerptBcl : lang === "en" ? item.excerptEn : item.excerptFil}
               </p>
             </article>
           ))}

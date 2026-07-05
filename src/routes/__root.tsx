@@ -4,6 +4,7 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
+import { LangProvider } from "../lib/LanguageContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import appCss from "../styles/app.css?url";
@@ -14,7 +15,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Barangay San Juan — Serbisyong Tapat, Barangay na Maunlad" },
+      { title: "Barangay Maanahao — Serbisyong Tapat, Barangay na Maunlad" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -33,11 +34,13 @@ function RootLayout() {
         <HeadContent />
       </head>
       <body className="font-sans text-neutral-900 bg-neutral-50 antialiased">
-        <Header />
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
+        <LangProvider>
+          <Header />
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
+        </LangProvider>
         <Scripts />
       </body>
     </html>

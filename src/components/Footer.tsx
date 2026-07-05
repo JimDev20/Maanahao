@@ -1,7 +1,11 @@
 import { Link } from "@tanstack/react-router";
+import { useLang } from "../lib/LanguageContext";
+import { t } from "../lib/translations";
 import { BARANGAY } from "../lib/data";
 
 export default function Footer() {
+  const { lang } = useLang();
+
   return (
     <footer className="bg-neutral-900 text-neutral-300 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl py-12 sm:py-16">
@@ -12,7 +16,7 @@ export default function Footer() {
                 <span className="text-center">
                   BRGY
                   <br />
-                  SJ
+                  MN
                 </span>
               </div>
               <div className="leading-tight">
@@ -21,44 +25,43 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-neutral-400 leading-relaxed">
-              Serbisyong Tapat, Barangay na Maunlad. Naglilingkod nang buong
-              puso sa bawat pamilyang Pilipino.
+              {t.footerTagline[lang]}
             </p>
           </div>
 
           <div>
-            <h3 className="font-semibold text-sm text-white mb-3">Mabilis na Link</h3>
+            <h3 className="font-semibold text-sm text-white mb-3">{t.footerQuickLinks[lang]}</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-sm text-neutral-400 hover:text-white transition-colors">
-                  Home
+                  {t.navHome[lang]}
                 </Link>
               </li>
               <li>
                 <a href="/#services" className="text-sm text-neutral-400 hover:text-white transition-colors">
-                  Services
+                  {t.navServices[lang]}
                 </a>
               </li>
               <li>
                 <a href="/#announcements" className="text-sm text-neutral-400 hover:text-white transition-colors">
-                  Announcements
+                  {t.navAnnouncements[lang]}
                 </a>
               </li>
               <li>
                 <a href="/#officials" className="text-sm text-neutral-400 hover:text-white transition-colors">
-                  Officials
+                  {t.navOfficials[lang]}
                 </a>
               </li>
               <li>
                 <a href="/#contact" className="text-sm text-neutral-400 hover:text-white transition-colors">
-                  Contact
+                  {t.navContact[lang]}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold text-sm text-white mb-3">Opisina</h3>
+            <h3 className="font-semibold text-sm text-white mb-3">{t.footerOffice[lang]}</h3>
             <ul className="space-y-2 text-sm text-neutral-400">
               <li>{BARANGAY.address}</li>
               <li>{BARANGAY.phone}</li>
@@ -67,7 +70,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-sm text-white mb-3">Sumubaybay</h3>
+            <h3 className="font-semibold text-sm text-white mb-3">{t.footerFollow[lang]}</h3>
             <a
               href={BARANGAY.facebook}
               target="_blank"
@@ -84,11 +87,8 @@ export default function Footer() {
 
         <div className="mt-10 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
           <p>&copy; 2026 {BARANGAY.name}. All rights reserved.</p>
-          <p>
-            Bilang pagtalima sa{" "}
-            <a href="#" className="hover:text-white transition-colors underline underline-offset-2">
-              Data Privacy Act (RA 10173)
-            </a>
+          <p className="hover:text-white transition-colors underline underline-offset-2">
+            {t.footerDataPrivacy[lang]}
           </p>
         </div>
       </div>

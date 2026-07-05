@@ -1,18 +1,22 @@
+import { useLang } from "../lib/LanguageContext";
+import { t } from "../lib/translations";
 import { BARANGAY } from "../lib/data";
 
 export default function Contact() {
+  const { lang } = useLang();
+
   return (
     <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="max-w-2xl mx-auto text-center mb-12">
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">
-            Makipag-ugnayan
+            {t.contactLabel[lang]}
           </span>
           <h2 className="mt-1 text-2xl sm:text-3xl font-bold text-neutral-900">
-            May Katanungan o Mungkahi?
+            {t.contactTitle[lang]}
           </h2>
           <p className="mt-2 text-neutral-500">
-            Mag-iwan ng mensahe at babalikan ka namin sa lalong madaling panahon.
+            {t.contactSubtitle[lang]}
           </p>
         </div>
 
@@ -20,7 +24,7 @@ export default function Contact() {
           <form className="space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1">
-                Pangalan
+                {t.contactName[lang]}
               </label>
               <input
                 id="name"
@@ -32,7 +36,7 @@ export default function Contact() {
             </div>
             <div>
               <label htmlFor="contact-info" className="block text-sm font-medium text-neutral-700 mb-1">
-                Email o Telepono
+                {t.contactEmail[lang]}
               </label>
               <input
                 id="contact-info"
@@ -44,36 +48,36 @@ export default function Contact() {
             </div>
             <div>
               <label htmlFor="concern" className="block text-sm font-medium text-neutral-700 mb-1">
-                Paksa ng Mensahe
+                {t.contactSubject[lang]}
               </label>
               <select
                 id="concern"
                 className="w-full rounded-xl border border-neutral-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white"
               >
-                <option value="">Pumili ng paksa...</option>
-                <option value="document">Request ng Dokumento</option>
-                <option value="report">Mag-report ng Insidente</option>
-                <option value="feedback">Mungkahi o Feedback</option>
-                <option value="other">Iba pa</option>
+                <option value="">{t.contactSubjectPlaceholder[lang]}</option>
+                <option value="document">{t.contactSubjectDoc[lang]}</option>
+                <option value="report">{t.contactSubjectReport[lang]}</option>
+                <option value="feedback">{t.contactSubjectFeedback[lang]}</option>
+                <option value="other">{t.contactSubjectOther[lang]}</option>
               </select>
             </div>
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-1">
-                Mensahe
+                {t.contactMessage[lang]}
               </label>
               <textarea
                 id="message"
                 rows={4}
                 required
                 className="w-full rounded-xl border border-neutral-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
-                placeholder="Isulat ang inyong mensahe..."
+                placeholder={t.contactMessagePlaceholder[lang]}
               />
             </div>
             <button
               type="submit"
               className="w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-primary/25 hover:bg-primary-dark transition-all active:scale-[0.97]"
             >
-              Ipasa ang Mensahe
+              {t.contactSubmit[lang]}
             </button>
           </form>
 
@@ -86,7 +90,7 @@ export default function Contact() {
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-neutral-900">Bisitahin Kami</h3>
+                <h3 className="font-semibold text-neutral-900">{t.contactVisit[lang]}</h3>
                 <p className="text-sm text-neutral-500">{BARANGAY.address}</p>
               </div>
             </div>
@@ -98,7 +102,7 @@ export default function Contact() {
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-neutral-900">Tawagan Kami</h3>
+                <h3 className="font-semibold text-neutral-900">{t.contactCall[lang]}</h3>
                 <p className="text-sm text-neutral-500">{BARANGAY.phone}</p>
               </div>
             </div>
@@ -110,14 +114,14 @@ export default function Contact() {
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-neutral-900">Facebook Page</h3>
+                <h3 className="font-semibold text-neutral-900">{t.contactFacebook[lang]}</h3>
                 <a
                   href={BARANGAY.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-blue-600 hover:underline"
                 >
-                  @BarangaySanJuan
+                  @BarangayMaanahao
                 </a>
               </div>
             </div>
