@@ -13,11 +13,15 @@ export default function QuickStats() {
   const { lang } = useLang();
 
   return (
-    <section className="relative -mt-12 pb-12 px-4 sm:px-6 lg:px-8">
+    <section className="relative -mt-14 pb-14 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden shadow-lg shadow-neutral-200/50">
-          {statsKeys.map((s) => (
-            <div key={s.labelKey} className="bg-white px-6 py-6 sm:py-8 text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden shadow-xl shadow-neutral-200/50">
+          {statsKeys.map((s, i) => (
+            <div
+              key={s.labelKey}
+              className="bg-white px-6 py-6 sm:py-8 text-center animate-fade-in-up"
+              style={{ animationDelay: `${i * 100}ms` }}
+            >
               <div className="text-2xl sm:text-3xl font-extrabold text-primary">
                 {s.value}
               </div>

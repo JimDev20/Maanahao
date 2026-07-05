@@ -1,6 +1,7 @@
 import { useLang } from "../lib/LanguageContext";
 import { t } from "../lib/translations";
 import { BARANGAY } from "../lib/data";
+import ScrollReveal from "./ScrollReveal";
 
 export default function MapLocation() {
   const { lang } = useLang();
@@ -9,7 +10,7 @@ export default function MapLocation() {
     <section id="location" className="py-16 sm:py-20 bg-white px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
-          <div>
+          <ScrollReveal>
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
               {t.locationLabel[lang]}
             </span>
@@ -55,16 +56,23 @@ export default function MapLocation() {
                 </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
-          <div className="rounded-xl overflow-hidden shadow-lg border border-neutral-200 aspect-[4/3] bg-neutral-100 flex items-center justify-center">
-            <div className="text-center p-6">
-              <svg className="size-12 mx-auto text-neutral-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-              <p className="text-sm text-neutral-400">{t.locationMapPlaceholder[lang]}</p>
+          <ScrollReveal delay={200}>
+            <div className="rounded-xl overflow-hidden shadow-lg border border-neutral-200 aspect-[4/3]">
+              <iframe
+                src={BARANGAY.mapEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: 300 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Barangay Maanahao Location"
+                className="w-full h-full"
+              />
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import QuickStats from "../components/QuickStats";
 import Announcements from "../components/Announcements";
 import Services from "../components/Services";
+import Gallery from "../components/Gallery";
 import Officials from "../components/Officials";
 import MapLocation from "../components/MapLocation";
 import EmergencyHotlines from "../components/EmergencyHotlines";
@@ -19,6 +20,7 @@ function IndexPage() {
       <QuickStats />
       <Announcements />
       <Services />
+      <Gallery />
       <Officials />
       <MapLocation />
       <EmergencyHotlines />

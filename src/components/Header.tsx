@@ -4,25 +4,25 @@ import { useLang } from "../lib/LanguageContext";
 import { LANG_LABELS, t, type Lang } from "../lib/translations";
 import { BARANGAY } from "../lib/data";
 
-const langs: Lang[] = ["bcl", "en", "fil"];
+const langs: Lang[] = ["en", "fil"];
+
+const links = [
+  { key: "navHome" as const, href: "/" },
+  { key: "navServices" as const, href: "/services" },
+  { key: "navAnnouncements" as const, href: "/announcements" },
+  { key: "navOfficials" as const, href: "/#officials" },
+  { key: "navContact" as const, href: "/#contact" },
+];
 
 export default function Header() {
   const { lang, setLang } = useLang();
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
 
-  const links = [
-    { key: "navHome" as const, href: "/" },
-    { key: "navServices" as const, href: "/#services" },
-    { key: "navAnnouncements" as const, href: "/#announcements" },
-    { key: "navOfficials" as const, href: "/#officials" },
-    { key: "navContact" as const, href: "/#contact" },
-  ];
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-200">
       <div className="mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3 shrink-0">
           <div className="size-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs leading-none">
             <span className="text-center">
               BRGY
@@ -46,6 +46,7 @@ export default function Header() {
               key={link.key}
               to={link.href}
               className="px-3 py-2 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-light hover:text-primary transition-colors"
+              activeProps={{ className: "bg-primary-light text-primary" }}
             >
               {t[link.key][lang]}
             </Link>
@@ -97,18 +98,29 @@ export default function Header() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-neutral-200 bg-white">
-          <nav className="flex flex-col px-4 py-3 gap-1">
+        <div className="md:hidden fixed inset-0 top-16 bg-white z-40 animate-fade-in">
+          <nav className="flex flex-col px-4 py-4 gap-1">
             {links.map((link) => (
               <Link
                 key={link.key}
                 to={link.href}
                 onClick={() => setOpen(false)}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-700 hover:bg-primary-light hover:text-primary transition-colors"
+                className="px-4 py-3.5 rounded-xl text-base font-medium text-neutral-700 hover:bg-primary-light hover:text-primary transition-colors"
+                activeProps={{ className: "bg-primary-light text-primary" }}
               >
                 {t[link.key][lang]}
               </Link>
             ))}
+            <hr className="my-3 border-neutral-100" />
+            <div className="px-4 py-2 text-sm text-neutral-400">
+              {BARANGAY.address}
+            </div>
+            <a
+              href={`tel:${BARANGAY.phone.replace(/[^0-9]/g, "")}`}
+              className="px-4 py-2 text-sm text-primary font-medium hover:underline"
+            >
+              {BARANGAY.phone}
+            </a>
           </nav>
         </div>
       )}

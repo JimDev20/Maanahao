@@ -7,6 +7,7 @@ import {
 import { LangProvider } from "../lib/LanguageContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import BackToTop from "../components/BackToTop";
 import appCss from "../styles/app.css?url";
 
 export const Route = createRootRoute({
@@ -16,6 +17,11 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Barangay Maanahao — Serbisyong Tapat, Barangay na Maunlad" },
+      { name: "description", content: "Official website of Barangay Maanahao, Palanas, Masbate. Serbisyong Tapat, Barangay na Maunlad." },
+      { name: "keywords", content: "Barangay Maanahao, Palanas, Masbate, barangay, local government" },
+      { property: "og:title", content: "Barangay Maanahao — Serbisyong Tapat, Barangay na Maunlad" },
+      { property: "og:description", content: "Official website of Barangay Maanahao, Palanas, Masbate." },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -40,6 +46,7 @@ function RootLayout() {
             <Outlet />
           </main>
           <Footer />
+          <BackToTop />
         </LangProvider>
         <Scripts />
       </body>

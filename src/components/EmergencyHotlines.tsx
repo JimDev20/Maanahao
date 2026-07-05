@@ -30,7 +30,7 @@ export default function EmergencyHotlines() {
               <span className="text-2xl">{contact.icon}</span>
               <div>
                 <div className="text-sm font-medium text-white/80">
-                  {lang === "bcl" ? contact.nameBcl : lang === "en" ? contact.nameEn : contact.nameFil}
+                  {lang === "en" ? contact.nameEn : contact.nameFil}
                 </div>
                 <div className="text-lg font-bold text-white group-hover:underline">
                   {contact.number}
