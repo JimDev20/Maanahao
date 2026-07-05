@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as ReportRouteImport } from './routes/report'
+import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as AnnouncementsRouteImport } from './routes/announcements'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ServicesRoute = ServicesRouteImport.update({
@@ -31,6 +33,11 @@ const ReportRoute = ReportRouteImport.update({
   path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AnnouncementsRoute = AnnouncementsRouteImport.update({
   id: '/announcements',
   path: '/announcements',
@@ -41,6 +48,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const R404Route = R404RouteImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,16 +61,20 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
+  '/downloads': typeof DownloadsRoute
   '/report': typeof ReportRoute
   '/request': typeof RequestRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
+  '/downloads': typeof DownloadsRoute
   '/report': typeof ReportRoute
   '/request': typeof RequestRoute
   '/services': typeof ServicesRoute
@@ -66,8 +82,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
+  '/downloads': typeof DownloadsRoute
   '/report': typeof ReportRoute
   '/request': typeof RequestRoute
   '/services': typeof ServicesRoute
@@ -75,14 +93,31 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/announcements' | '/report' | '/request' | '/services'
+    | '/'
+    | '/404'
+    | '/about'
+    | '/announcements'
+    | '/downloads'
+    | '/report'
+    | '/request'
+    | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/announcements' | '/report' | '/request' | '/services'
+  to:
+    | '/'
+    | '/404'
+    | '/about'
+    | '/announcements'
+    | '/downloads'
+    | '/report'
+    | '/request'
+    | '/services'
   id:
     | '__root__'
     | '/'
+    | '/404'
     | '/about'
     | '/announcements'
+    | '/downloads'
     | '/report'
     | '/request'
     | '/services'
@@ -90,8 +125,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   AnnouncementsRoute: typeof AnnouncementsRoute
+  DownloadsRoute: typeof DownloadsRoute
   ReportRoute: typeof ReportRoute
   RequestRoute: typeof RequestRoute
   ServicesRoute: typeof ServicesRoute
@@ -120,6 +157,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/announcements': {
       id: '/announcements'
       path: '/announcements'
@@ -134,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -146,8 +197,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R404Route: R404Route,
   AboutRoute: AboutRoute,
   AnnouncementsRoute: AnnouncementsRoute,
+  DownloadsRoute: DownloadsRoute,
   ReportRoute: ReportRoute,
   RequestRoute: RequestRoute,
   ServicesRoute: ServicesRoute,

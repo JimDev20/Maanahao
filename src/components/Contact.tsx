@@ -72,6 +72,7 @@ export default function Contact() {
                     {t.contactName[lang]}
                   </label>
                   <input
+                    name="name"
                     id="name"
                     type="text"
                     required
@@ -84,6 +85,7 @@ export default function Contact() {
                     {t.contactEmail[lang]}
                   </label>
                   <input
+                    name="contact-info"
                     id="contact-info"
                     type="text"
                     required
@@ -96,6 +98,7 @@ export default function Contact() {
                     {t.contactSubject[lang]}
                   </label>
                   <select
+                    name="concern"
                     id="concern"
                     className="w-full rounded-xl border border-neutral-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white"
                   >
@@ -111,6 +114,7 @@ export default function Contact() {
                     {t.contactMessage[lang]}
                   </label>
                   <textarea
+                    name="message"
                     id="message"
                     rows={4}
                     required

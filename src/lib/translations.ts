@@ -116,6 +116,51 @@ export const t = {
   servicesRequirements: { en: "Requirements", fil: "Mga Requirement" },
   servicesProcedure: { en: "Procedure", fil: "Proseso" },
   servicesFee: { en: "Fee", fil: "Halaga" },
+
+  navRequest: { en: "Request Document", fil: "Request Document" },
+  navReport: { en: "Report Incident", fil: "Mag-report" },
+  navAbout: { en: "About", fil: "Tungkol" },
+  navDownloads: { en: "Downloads", fil: "Downloads" },
+
+  faqLabel: { en: "FAQ", fil: "FAQ" },
+  faqTitle: { en: "Frequently Asked Questions", fil: "Mga Madalas Itanong" },
+  faqSubtitle: { en: "Common questions about Barangay Maanahao services and procedures.", fil: "Mga karaniwang tanong tungkol sa serbisyo at proseso ng Barangay Maanahao." },
+  faqQ1: { en: "What are the office hours of Barangay Hall?", fil: "Ano ang oras ng opisina ng Barangay Hall?" },
+  faqA1: { en: "The Barangay Hall is open Monday to Friday, 8:00 AM to 5:00 PM, except on public holidays.", fil: "Bukas ang Barangay Hall mula Lunes hanggang Biyernes, 8:00 AM hanggang 5:00 PM, maliban sa mga pampublikong holiday." },
+  faqQ2: { en: "How do I get a Barangay Clearance?", fil: "Paano kumuha ng Barangay Clearance?" },
+  faqA2: { en: "Visit the Barangay Hall during office hours, fill out the application form at the Secretary's office, pay the fee, and wait for processing. Usually takes 15-30 minutes.", fil: "Bisitahin ang Barangay Hall sa oras ng opisina, punan ang application form sa opisina ng Kalihim, magbayad ng bayad, at maghintay sa processing. Karaniwang tumatagal ng 15-30 minuto." },
+  faqQ3: { en: "Is the Certificate of Indigency really free?", fil: "Libre ba talaga ang Certificate of Indigency?" },
+  faqA3: { en: "Yes, the Certificate of Indigency is absolutely free of charge as a social service to low-income residents of Barangay Maanahao.", fil: "Oo, ang Certificate of Indigency ay talagang libre bilang serbisyong panlipunan sa mga mahihirap na residente ng Barangay Maanahao." },
+  faqQ4: { en: "How do I report an emergency in the barangay?", fil: "Paano mag-ulat ng emergency sa barangay?" },
+  faqA4: { en: "You can call our emergency hotlines directly or visit the Barangay Hall. For urgent matters, call the Barangay Tanod at 0917-123-4567.", fil: "Maaari kang tumawag nang direkta sa aming emergency hotlines o bumisita sa Barangay Hall. Para sa mga urgenteng bagay, tumawag sa Barangay Tanod sa 0917-123-4567." },
+  faqQ5: { en: "What documents do I need to apply for a Business Permit?", fil: "Anong mga dokumento ang kailangan para mag-apply ng Business Permit?" },
+  faqA5: { en: "You need: DTI/SEC Registration, Barangay Clearance, Community Tax Certificate (Cedula), Sanitary Permit, and Occupational Permit.", fil: "Kailangan mo: DTI/SEC Registration, Barangay Clearance, Community Tax Certificate (Cedula), Sanitary Permit, at Occupational Permit." },
+  faqQ6: { en: "How long does it take to process a Document Request?", fil: "Gaano katagal iproseso ang isang Document Request?" },
+  faqA6: { en: "Document requests are typically processed within 1-2 business days. You will be notified once your document is ready for claiming.", fil: "Ang mga request ng dokumento ay karaniwang pinoproseso sa loob ng 1-2 araw. Abisuhan ka kapag handa na ang iyong dokumento." },
+
+  downloadsLabel: { en: "DOWNLOADS", fil: "DOWNLOADS" },
+  downloadsTitle: { en: "Downloads & Forms", fil: "Mga Download at Form" },
+  downloadsSubtitle: { en: "Downloadable forms and documents for Barangay Maanahao transactions.", fil: "Mga mada-download na form at dokumento para sa transaksyon sa Barangay Maanahao." },
+  downloadBarangayClearance: { en: "Barangay Clearance Form", fil: "Barangay Clearance Form" },
+  downloadIndigency: { en: "Certificate of Indigency Form", fil: "Certificate of Indigency Form" },
+  downloadBusinessPermit: { en: "Business Permit Application", fil: "Business Permit Application" },
+  downloadBlotter: { en: "Blotter Report Form", fil: "Blotter Report Form" },
+  downloadCedula: { en: "Cedula Application Form", fil: "Cedula Application Form" },
+  downloadHealth: { en: "Health Center Record Form", fil: "Health Center Record Form" },
+  downloadPdf: { en: "Download PDF", fil: "I-download ang PDF" },
+  downloadDoc: { en: "Download DOC", fil: "I-download ang DOC" },
+  downloadNote: { en: "These are sample forms. Please visit the Barangay Hall to obtain official copies.", fil: "Ito ay mga sample na form. Mangyaring bumisita sa Barangay Hall para sa opisyal na kopya." },
+
+  projectsLabel: { en: "PROJECTS", fil: "MGA PROYEKTO" },
+  projectsTitle: { en: "Barangay Projects & Initiatives", fil: "Mga Proyekto at Inisyatiba ng Barangay" },
+  projectsSubtitle: { en: "Ongoing and completed projects that improve our community.", fil: "Mga kasalukuyan at natapos na proyekto na nagpapabuti sa ating komunidad." },
+
+  notFoundTitle: { en: "Page Not Found", fil: "Hindi Natagpuan ang Pahina" },
+  notFoundDesc: { en: "The page you are looking for does not exist or has been moved.", fil: "Ang pahina na iyong hinahanap ay hindi umiiral o nailipat na." },
+  notFoundHome: { en: "Go Back Home", fil: "Bumalik sa Home" },
+
+  transparencyTitle: { en: "Transparency", fil: "Transparency" },
+  transparencySubtitle: { en: "Financial reports, project updates, and other public documents.", fil: "Financial reports, project updates, at iba pang pampublikong dokumento." },
 };
 
 export function useLang(lang: Lang) {
