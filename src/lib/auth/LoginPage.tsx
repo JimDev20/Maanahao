@@ -70,7 +70,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full rounded-xl border border-neutral-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-                placeholder="admin@barangay.gov"
+                placeholder={lang === "en" ? "you@example.com" : "ikaw@halimbawa.com"}
               />
             </div>
 

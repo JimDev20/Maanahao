@@ -4,5 +4,6 @@ dist
 .tanstack
 *.tsbuildinfo
 .env
-.env.local
-.env.prod
+.env.*
+!.env.example
+backend/

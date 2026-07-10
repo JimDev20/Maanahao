@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(async (email: string, password: string) => {
     const pb = getPocketBase();
-    const authData = await pb.collection("users").authWithPassword(email, password);
+    const authData = await pb.collection("app_users").authWithPassword(email, password);
     setUser(authData.record as unknown as User);
   }, []);
 
