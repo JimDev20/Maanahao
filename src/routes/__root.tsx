@@ -3,6 +3,7 @@ import {
   HeadContent,
   Outlet,
   Scripts,
+  useMatches,
 } from "@tanstack/react-router";
 import { LangProvider } from "../lib/LanguageContext";
 import { AuthProvider } from "../lib/auth/AuthContext";
@@ -35,6 +36,9 @@ export const Route = createRootRoute({
 });
 
 function RootLayout() {
+  const matches = useMatches();
+  const isAdmin = matches.some((m) => m.pathname.startsWith("/admin"));
+
   return (
     <html lang="fil">
       <head>
@@ -43,11 +47,11 @@ function RootLayout() {
       <body className="font-sans text-neutral-900 bg-neutral-50 antialiased">
         <AuthProvider>
           <LangProvider>
-            <Header />
+            {!isAdmin && <Header />}
             <main>
               <Outlet />
             </main>
-            <Footer />
+            {!isAdmin && <Footer />}
             <BackToTop />
           </LangProvider>
         </AuthProvider>
