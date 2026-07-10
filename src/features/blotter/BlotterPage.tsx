@@ -103,7 +103,7 @@ export default function BlotterPage() {
 
   return (
     <div className="pt-20 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900">
             {lang === "en" ? "Blotter / Incident Records" : "Mga Rekord ng Blotter / Insidente"}
@@ -113,7 +113,7 @@ export default function BlotterPage() {
           </p>
         </div>
         {view === "list" && (
-          <button onClick={() => setView("add")} className="rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white hover:bg-primary-dark transition-all">
+          <button onClick={() => setView("add")} className="rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white hover:bg-primary-dark transition-all self-start">
             + {lang === "en" ? "New Record" : "Bagong Rekord"}
           </button>
         )}
@@ -148,7 +148,7 @@ export default function BlotterPage() {
           ) : (
             <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="w-full text-sm min-w-[580px]">
                   <thead>
                     <tr className="border-b border-neutral-200 bg-neutral-50">
                       <th className="text-left px-4 py-3 font-medium text-neutral-600">{lang === "en" ? "Case #" : "Kaso #"}</th>
@@ -263,7 +263,7 @@ export default function BlotterPage() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 text-sm">
                 <div>
                   <span className="text-neutral-500">{lang === "en" ? "Complainant" : "Nagrereklamo"}:</span>
                   <p className="font-medium text-neutral-900">{selectedRecord.complainant_name}</p>

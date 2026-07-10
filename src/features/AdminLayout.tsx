@@ -79,13 +79,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="flex-1 lg:ml-64">
-        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-neutral-200 px-4 py-3 flex items-center gap-4">
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden p-2 rounded-lg hover:bg-neutral-100">
+        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-neutral-200 px-4 py-3 flex items-center gap-3">
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden p-2 rounded-lg hover:bg-neutral-100 shrink-0">
             <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
-          <div className="flex-1" />
-          <span className="text-sm text-neutral-500">
+          <div className="flex-1 min-w-0" />
+          <span className="text-xs sm:text-sm text-neutral-500 truncate shrink-0 hidden sm:block">
             {new Date().toLocaleDateString(lang === "en" ? "en-US" : "fil-PH", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+          </span>
+          <span className="text-xs text-neutral-500 sm:hidden shrink-0">
+            {new Date().toLocaleDateString(lang === "en" ? "en-US" : "fil-PH", { month: "short", day: "numeric" })}
           </span>
         </header>
 

@@ -46,7 +46,7 @@ export default function DashboardPage() {
 
   return (
     <div className="pt-20 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900">
             {lang === "en" ? "Dashboard" : "Dashboard"}
@@ -59,7 +59,7 @@ export default function DashboardPage() {
         </div>
         <button
           onClick={logout}
-          className="rounded-xl border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors"
+          className="rounded-xl border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors self-start"
         >
           {lang === "en" ? "Sign Out" : "Mag-sign Out"}
         </button>
@@ -101,7 +101,7 @@ export default function DashboardPage() {
                 <h2 className="text-lg font-bold text-neutral-900 mb-4">
                   {lang === "en" ? "Quick Actions" : "Mabilis na Aksyon"}
                 </h2>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <Link
                     to="/admin/residents"
                     className="flex items-center gap-3 rounded-xl border border-neutral-200 p-4 hover:bg-primary-light hover:border-primary/30 transition-all"
