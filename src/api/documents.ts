@@ -1,5 +1,6 @@
 import { getPocketBase } from "./client";
 import { handleApiCall } from "./errorHandler";
+import { executeWrite } from "./offline";
 import type { DocumentRequest } from "./types";
 
 export async function getDocumentRequests(page = 1, perPage = 50, filter = "", sort = "-created") {
@@ -15,13 +16,11 @@ export async function getDocumentRequest(id: string) {
 }
 
 export async function createDocumentRequest(data: Partial<DocumentRequest>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("documents").create(data));
+  return executeWrite("create", "documents", data as Record<string, unknown>);
 }
 
 export async function updateDocumentRequest(id: string, data: Partial<DocumentRequest>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("documents").update(id, data));
+  return executeWrite("update", "documents", data as Record<string, unknown>, id);
 }
 
 export async function updateDocumentStatus(
@@ -29,13 +28,12 @@ export async function updateDocumentStatus(
   status: DocumentRequest["status"],
   notes?: string
 ) {
-  const pb = getPocketBase();
   const updateData: Partial<DocumentRequest> = { status };
   if (notes) updateData.notes = notes;
   if (status === "released") {
     updateData.released_date = new Date().toISOString();
   }
-  return handleApiCall(pb.collection("documents").update(id, updateData));
+  return executeWrite("update", "documents", updateData as Record<string, unknown>, id);
 }
 
 export async function getDocumentsByStatus(status: string) {

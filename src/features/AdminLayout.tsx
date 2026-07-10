@@ -2,6 +2,7 @@ import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "../lib/auth/AuthContext";
 import { useLang } from "../lib/LanguageContext";
+import OfflineIndicator from "../components/OfflineIndicator";
 
 const adminLinks = [
   { key: "dashboard", href: "/admin", icon: "📊", labelEn: "Dashboard", labelFil: "Dashboard" },
@@ -9,6 +10,8 @@ const adminLinks = [
   { key: "documents", href: "/admin/documents", icon: "📄", labelEn: "Documents", labelFil: "Mga Dokumento" },
   { key: "blotter", href: "/admin/blotter", icon: "📋", labelEn: "Blotter", labelFil: "Blotter" },
   { key: "finance", href: "/admin/finance", icon: "💰", labelEn: "Finance", labelFil: "Pinansyal" },
+  { key: "site-editor", href: "/admin/site-editor", icon: "✏️", labelEn: "Site Editor", labelFil: "Site Editor" },
+  { key: "monitoring", href: "/admin/monitoring", icon: "🖥️", labelEn: "Monitor", labelFil: "Monitor" },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -74,6 +77,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </aside>
+
+      <OfflineIndicator />
 
       <div className="flex-1 lg:ml-64">
         <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-neutral-200 px-4 py-3 flex items-center gap-3">

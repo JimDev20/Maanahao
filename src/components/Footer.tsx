@@ -1,10 +1,20 @@
+import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { useLang } from "../lib/LanguageContext";
 import { t } from "../lib/translations";
 import { BARANGAY } from "../lib/data";
+import { getSiteSection, type SiteContent } from "../api/siteContent";
 
 export default function Footer() {
   const { lang } = useLang();
+  const [content, setContent] = useState<SiteContent | null>(null);
+
+  useEffect(() => {
+    getSiteSection("footer").then(setContent).catch(() => {});
+  }, []);
+
+  const tagline = content?.body || t.footerTagline[lang];
+  const address = content?.subtitle || BARANGAY.address;
 
   return (
     <footer className="bg-neutral-900 text-neutral-300 px-4 sm:px-6 lg:px-8">
@@ -20,12 +30,12 @@ export default function Footer() {
                 </span>
               </div>
               <div className="leading-tight">
-                <span className="block font-bold text-sm text-white">{BARANGAY.name}</span>
+                <span className="block font-bold text-sm text-white">{content?.title || BARANGAY.name}</span>
                 <span className="block text-xs text-neutral-400">{BARANGAY.municipality}</span>
               </div>
             </div>
             <p className="text-sm text-neutral-400 leading-relaxed">
-              {t.footerTagline[lang]}
+              {tagline}
             </p>
           </div>
 
@@ -58,7 +68,7 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-sm text-white mb-3">{t.footerOffice[lang]}</h3>
             <ul className="space-y-2 text-sm text-neutral-400">
-              <li>{BARANGAY.address}</li>
+              <li>{address}</li>
               <li>{BARANGAY.phone}</li>
               <li>{BARANGAY.email}</li>
               <li>{BARANGAY.officeHours}</li>
@@ -82,7 +92,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
-          <p>&copy; 2026 {BARANGAY.name}. All rights reserved.</p>
+          <p>&copy; 2026 {content?.title || BARANGAY.name}. All rights reserved.</p>
           <p className="hover:text-white transition-colors underline underline-offset-2">
             {t.footerDataPrivacy[lang]}
           </p>

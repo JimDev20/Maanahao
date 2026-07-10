@@ -5,11 +5,14 @@ import {
   Scripts,
   useMatches,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { LangProvider } from "../lib/LanguageContext";
 import { AuthProvider } from "../lib/auth/AuthContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BackToTop from "../components/BackToTop";
+import { startAutoSync } from "../offline/syncManager";
+import { logSystemError } from "../api/health";
 import appCss from "../styles/app.css?url";
 
 export const Route = createRootRoute({
@@ -38,6 +41,26 @@ export const Route = createRootRoute({
 function RootLayout() {
   const matches = useMatches();
   const isAdmin = matches.some((m) => m.pathname.startsWith("/admin"));
+
+  useEffect(() => {
+    const stop = startAutoSync();
+    return stop;
+  }, []);
+
+  useEffect(() => {
+    function handleError(event: ErrorEvent) {
+      logSystemError("js_error", event.message, event.error?.stack, window.location.href);
+    }
+    function handleRejection(event: PromiseRejectionEvent) {
+      logSystemError("api_error", String(event.reason), "", window.location.href);
+    }
+    window.addEventListener("error", handleError);
+    window.addEventListener("unhandledrejection", handleRejection);
+    return () => {
+      window.removeEventListener("error", handleError);
+      window.removeEventListener("unhandledrejection", handleRejection);
+    };
+  }, []);
 
   return (
     <html lang="fil">

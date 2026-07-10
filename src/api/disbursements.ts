@@ -1,5 +1,6 @@
 import { getPocketBase } from "./client";
 import { handleApiCall } from "./errorHandler";
+import { executeWrite } from "./offline";
 import type { Disbursement } from "./types";
 
 export async function getDisbursements(fiscalYear?: number, page = 1, perPage = 50) {
@@ -11,18 +12,15 @@ export async function getDisbursements(fiscalYear?: number, page = 1, perPage = 
 }
 
 export async function createDisbursement(data: Partial<Disbursement>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("disbursements").create(data));
+  return executeWrite("create", "disbursements", data as Record<string, unknown>);
 }
 
 export async function updateDisbursement(id: string, data: Partial<Disbursement>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("disbursements").update(id, data));
+  return executeWrite("update", "disbursements", data as Record<string, unknown>, id);
 }
 
 export async function deleteDisbursement(id: string) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("disbursements").delete(id));
+  return executeWrite("delete", "disbursements", undefined, id);
 }
 
 export async function getTotalDisbursements(fiscalYear: number) {

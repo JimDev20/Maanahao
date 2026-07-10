@@ -1,5 +1,6 @@
 import { getPocketBase } from "./client";
 import { handleApiCall } from "./errorHandler";
+import { executeWrite } from "./offline";
 import type { FundSource } from "./types";
 
 export async function getFundSources(fiscalYear?: number) {
@@ -11,16 +12,13 @@ export async function getFundSources(fiscalYear?: number) {
 }
 
 export async function createFundSource(data: Partial<FundSource>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("fund_sources").create(data));
+  return executeWrite("create", "fund_sources", data as Record<string, unknown>);
 }
 
 export async function updateFundSource(id: string, data: Partial<FundSource>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("fund_sources").update(id, data));
+  return executeWrite("update", "fund_sources", data as Record<string, unknown>, id);
 }
 
 export async function deleteFundSource(id: string) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("fund_sources").delete(id));
+  return executeWrite("delete", "fund_sources", undefined, id);
 }

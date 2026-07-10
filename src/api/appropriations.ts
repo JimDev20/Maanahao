@@ -1,5 +1,6 @@
 import { getPocketBase } from "./client";
 import { handleApiCall } from "./errorHandler";
+import { executeWrite } from "./offline";
 import type { Appropriation } from "./types";
 
 export async function getAppropriations(fiscalYear?: number) {
@@ -11,18 +12,15 @@ export async function getAppropriations(fiscalYear?: number) {
 }
 
 export async function createAppropriation(data: Partial<Appropriation>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("appropriations").create(data));
+  return executeWrite("create", "appropriations", data as Record<string, unknown>);
 }
 
 export async function updateAppropriation(id: string, data: Partial<Appropriation>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("appropriations").update(id, data));
+  return executeWrite("update", "appropriations", data as Record<string, unknown>, id);
 }
 
 export async function deleteAppropriation(id: string) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("appropriations").delete(id));
+  return executeWrite("delete", "appropriations", undefined, id);
 }
 
 export async function getAppropriationSummary(fiscalYear: number) {

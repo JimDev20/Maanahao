@@ -6,6 +6,7 @@ import { getDashboardStats } from "../../api/reports";
 import { getRecentActivity } from "../../api/activity";
 import type { ActivityLog } from "../../api/types";
 import ScrollReveal from "../../components/ScrollReveal";
+import DashboardCharts from "./DashboardCharts";
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -171,6 +172,13 @@ export default function DashboardPage() {
                 )}
               </div>
             </ScrollReveal>
+          </div>
+
+          <div className="mt-8">
+            <h2 className="text-lg font-bold text-neutral-900 mb-4">
+              {lang === "en" ? "Analytics" : "Analytics"}
+            </h2>
+            <DashboardCharts />
           </div>
         </>
       )}

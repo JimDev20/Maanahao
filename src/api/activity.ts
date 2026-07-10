@@ -1,5 +1,6 @@
 import { getPocketBase } from "./client";
 import { handleApiCall } from "./errorHandler";
+import { executeWrite } from "./offline";
 import type { ActivityLog } from "./types";
 
 export async function getActivityLogs(page = 1, perPage = 50, filter = "") {
@@ -16,9 +17,8 @@ export async function logActivity(data: {
   record_id?: string;
   details?: string;
 }) {
-  const pb = getPocketBase();
   try {
-    return await handleApiCall(pb.collection("activity_log").create(data));
+    return await executeWrite("create", "activity_log", data as Record<string, unknown>);
   } catch {
     console.warn("Failed to log activity");
     return null;

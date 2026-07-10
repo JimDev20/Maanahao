@@ -1,5 +1,6 @@
 import { getPocketBase } from "./client";
 import { handleApiCall } from "./errorHandler";
+import { executeWrite } from "./offline";
 import type { Revenue } from "./types";
 
 export async function getRevenues(fiscalYear?: number, page = 1, perPage = 50) {
@@ -11,18 +12,15 @@ export async function getRevenues(fiscalYear?: number, page = 1, perPage = 50) {
 }
 
 export async function createRevenue(data: Partial<Revenue>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("revenues").create(data));
+  return executeWrite("create", "revenues", data as Record<string, unknown>);
 }
 
 export async function updateRevenue(id: string, data: Partial<Revenue>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("revenues").update(id, data));
+  return executeWrite("update", "revenues", data as Record<string, unknown>, id);
 }
 
 export async function deleteRevenue(id: string) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("revenues").delete(id));
+  return executeWrite("delete", "revenues", undefined, id);
 }
 
 export async function getTotalRevenue(fiscalYear: number) {

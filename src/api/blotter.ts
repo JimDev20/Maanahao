@@ -1,5 +1,6 @@
 import { getPocketBase } from "./client";
 import { handleApiCall } from "./errorHandler";
+import { executeWrite } from "./offline";
 import type { Blotter } from "./types";
 
 export async function getBlotterRecords(page = 1, perPage = 50, filter = "", sort = "-created") {
@@ -15,13 +16,11 @@ export async function getBlotterRecord(id: string) {
 }
 
 export async function createBlotterRecord(data: Partial<Blotter>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("blotter").create(data));
+  return executeWrite("create", "blotter", data as Record<string, unknown>);
 }
 
 export async function updateBlotterRecord(id: string, data: Partial<Blotter>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("blotter").update(id, data));
+  return executeWrite("update", "blotter", data as Record<string, unknown>, id);
 }
 
 export async function updateBlotterStatus(
@@ -29,10 +28,9 @@ export async function updateBlotterStatus(
   status: Blotter["status"],
   resolution?: string
 ) {
-  const pb = getPocketBase();
   const updateData: Partial<Blotter> = { status };
   if (resolution) updateData.resolution = resolution;
-  return handleApiCall(pb.collection("blotter").update(id, updateData));
+  return executeWrite("update", "blotter", updateData as Record<string, unknown>, id);
 }
 
 export async function getBlotterByStatus(status: string) {

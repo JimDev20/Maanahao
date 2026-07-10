@@ -1,5 +1,6 @@
 import { getPocketBase } from "./client";
 import { handleApiCall } from "./errorHandler";
+import { executeWrite } from "./offline";
 import type { Resident } from "./types";
 
 export async function getResidents(page = 1, perPage = 50, filter = "", sort = "-created") {
@@ -15,18 +16,15 @@ export async function getResident(id: string) {
 }
 
 export async function createResident(data: Partial<Resident>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("residents").create(data));
+  return executeWrite("create", "residents", data as Record<string, unknown>);
 }
 
 export async function updateResident(id: string, data: Partial<Resident>) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("residents").update(id, data));
+  return executeWrite("update", "residents", data as Record<string, unknown>, id);
 }
 
 export async function deleteResident(id: string) {
-  const pb = getPocketBase();
-  return handleApiCall(pb.collection("residents").delete(id));
+  return executeWrite("delete", "residents", undefined, id);
 }
 
 export async function searchResidents(query: string) {
