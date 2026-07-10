@@ -52,21 +52,6 @@ export default function Footer() {
                   {t.navAnnouncements[lang]}
                 </Link>
               </li>
-              <li>
-                <Link to="/request" className="text-sm text-neutral-400 hover:text-white transition-colors">
-                  {t.navRequest[lang]}
-                </Link>
-              </li>
-              <li>
-                <Link to="/report" className="text-sm text-neutral-400 hover:text-white transition-colors">
-                  {t.navReport[lang]}
-                </Link>
-              </li>
-              <li>
-                <Link to="/downloads" className="text-sm text-neutral-400 hover:text-white transition-colors">
-                  {t.navDownloads[lang]}
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -86,27 +71,13 @@ export default function Footer() {
               href={BARANGAY.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2.5 text-sm font-medium text-white hover:bg-white/20 transition-colors mb-4"
+              className="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2.5 text-sm font-medium text-white hover:bg-white/20 transition-colors"
             >
               <svg className="size-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
               Facebook Page
             </a>
-            <div className="flex gap-2">
-              <Link
-                to="/request"
-                className="rounded-lg bg-primary/20 px-3 py-2 text-xs font-semibold text-primary-light hover:bg-primary/30 transition-colors"
-              >
-                {t.navRequest[lang]}
-              </Link>
-              <Link
-                to="/report"
-                className="rounded-lg bg-secondary/20 px-3 py-2 text-xs font-semibold text-red-300 hover:bg-secondary/30 transition-colors"
-              >
-                {t.navReport[lang]}
-              </Link>
-            </div>
           </div>
         </div>
 

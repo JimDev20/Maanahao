@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useLang } from "../lib/LanguageContext";
 import { t } from "../lib/translations";
 import { BARANGAY } from "../lib/data";
-import { submitContact } from "../lib/server/actions";
 import ScrollReveal from "./ScrollReveal";
 
 export default function Contact() {
@@ -13,23 +12,10 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    try {
-      await submitContact({
-        data: {
-          name: data.get("name") as string,
-          contact: data.get("contact-info") as string,
-          subject: data.get("concern") as string,
-          message: data.get("message") as string,
-        },
-      });
+    setTimeout(() => {
       setSubmitted(true);
-    } catch (err) {
-      console.error("Contact submission failed", err);
-    } finally {
       setLoading(false);
-    }
+    }, 800);
   };
 
   return (

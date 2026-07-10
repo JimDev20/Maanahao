@@ -30,28 +30,6 @@ export interface Resident {
   updated: string;
 }
 
-export interface Household {
-  id: string;
-  name: string;
-  household_head: string;
-  address: string;
-  purok?: string;
-  total_members: number;
-  monthly_income?: number;
-  created: string;
-  updated: string;
-}
-
-export interface HouseholdMember {
-  id: string;
-  household_id: string;
-  resident_id: string;
-  relationship_to_head: string;
-  is_dependent: boolean;
-  created: string;
-  updated: string;
-}
-
 export interface DocumentRequest {
   id: string;
   request_number: string;
@@ -139,26 +117,6 @@ export interface Disbursement {
   updated: string;
 }
 
-export interface Obligation {
-  id: string;
-  appropriation_id?: string;
-  description: string;
-  amount: number;
-  date_obligated: string;
-  status: "pending" | "obligated" | "fully_paid";
-  created: string;
-  updated: string;
-}
-
-export interface IncomeAccount {
-  id: string;
-  code: string;
-  name: string;
-  description?: string;
-  created: string;
-  updated: string;
-}
-
 export interface ActivityLog {
   id: string;
   user?: string;
@@ -169,62 +127,11 @@ export interface ActivityLog {
   created: string;
 }
 
-export interface Visitor {
-  id: string;
-  visitor_name: string;
-  purpose: string;
-  check_in: string;
-  check_out?: string;
-  created: string;
-}
-
-export interface Asset {
-  id: string;
-  name: string;
-  description?: string;
-  category: string;
-  quantity: number;
-  unit_cost: number;
-  total_cost: number;
-  condition: "excellent" | "good" | "fair" | "poor" | "decommissioned";
-  status: "in_use" | "in_storage" | "maintenance" | "decommissioned";
-  location?: string;
-  date_acquired?: string;
-  created: string;
-  updated: string;
-}
-
-export interface CalendarEvent {
-  id: string;
-  title: string;
-  description?: string;
-  event_date: string;
-  event_type: string;
-  created: string;
-}
-
-export interface SystemSetting {
-  id: string;
-  key: string;
-  value: string;
-  created: string;
-  updated: string;
-}
-
 export interface User {
   id: string;
   email: string;
   name: string;
   role: "admin" | "staff" | "viewer";
-  created: string;
-  updated: string;
-}
-
-export interface Lookup {
-  id: string;
-  group: string;
-  values: string;
-  description?: string;
   created: string;
   updated: string;
 }

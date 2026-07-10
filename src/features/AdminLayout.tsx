@@ -2,7 +2,6 @@ import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "../lib/auth/AuthContext";
 import { useLang } from "../lib/LanguageContext";
-import OfflineIndicator from "../components/OfflineIndicator";
 
 const adminLinks = [
   { key: "dashboard", href: "/admin", icon: "📊", labelEn: "Dashboard", labelFil: "Dashboard" },
@@ -19,8 +18,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-neutral-50 flex">
-      <OfflineIndicator />
-
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/30 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}

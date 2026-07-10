@@ -10,9 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as RequestRouteImport } from './routes/request'
-import { Route as ReportRouteImport } from './routes/report'
-import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as AnnouncementsRouteImport } from './routes/announcements'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as R404RouteImport } from './routes/404'
@@ -27,21 +24,6 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RequestRoute = RequestRouteImport.update({
-  id: '/request',
-  path: '/request',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReportRoute = ReportRouteImport.update({
-  id: '/report',
-  path: '/report',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DownloadsRoute = DownloadsRouteImport.update({
-  id: '/downloads',
-  path: '/downloads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnnouncementsRoute = AnnouncementsRouteImport.update({
@@ -100,9 +82,6 @@ export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
-  '/downloads': typeof DownloadsRoute
-  '/report': typeof ReportRoute
-  '/request': typeof RequestRoute
   '/services': typeof ServicesRoute
   '/admin': typeof AdminRoute
   '/admin/finance': typeof AdminFinanceRoute
@@ -115,9 +94,6 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
-  '/downloads': typeof DownloadsRoute
-  '/report': typeof ReportRoute
-  '/request': typeof RequestRoute
   '/services': typeof ServicesRoute
   '/admin': typeof AdminIndexRoute
   '/admin/finance': typeof AdminFinanceRoute
@@ -131,9 +107,6 @@ export interface FileRoutesById {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
-  '/downloads': typeof DownloadsRoute
-  '/report': typeof ReportRoute
-  '/request': typeof RequestRoute
   '/services': typeof ServicesRoute
   '/admin': typeof AdminRoute
   '/admin/': typeof AdminIndexRoute
@@ -149,9 +122,6 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/announcements'
-    | '/downloads'
-    | '/report'
-    | '/request'
     | '/services'
     | '/admin'
     | '/admin/finance'
@@ -164,9 +134,6 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/announcements'
-    | '/downloads'
-    | '/report'
-    | '/request'
     | '/services'
     | '/admin'
     | '/admin/finance'
@@ -179,9 +146,6 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/announcements'
-    | '/downloads'
-    | '/report'
-    | '/request'
     | '/services'
     | '/admin'
     | '/admin/'
@@ -215,9 +179,6 @@ export interface RootRouteChildren {
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   AnnouncementsRoute: typeof AnnouncementsRoute
-  DownloadsRoute: typeof DownloadsRoute
-  ReportRoute: typeof ReportRoute
-  RequestRoute: typeof RequestRoute
   ServicesRoute: typeof ServicesRoute
   AdminRoute: typeof AdminRouteWithChildren
 }
@@ -229,27 +190,6 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/request': {
-      id: '/request'
-      path: '/request'
-      fullPath: '/request'
-      preLoaderRoute: typeof RequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/report': {
-      id: '/report'
-      path: '/report'
-      fullPath: '/report'
-      preLoaderRoute: typeof ReportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/downloads': {
-      id: '/downloads'
-      path: '/downloads'
-      fullPath: '/downloads'
-      preLoaderRoute: typeof DownloadsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/announcements': {
@@ -330,9 +270,6 @@ const rootRouteChildren: RootRouteChildren = {
   R404Route: R404Route,
   AboutRoute: AboutRoute,
   AnnouncementsRoute: AnnouncementsRoute,
-  DownloadsRoute: DownloadsRoute,
-  ReportRoute: ReportRoute,
-  RequestRoute: RequestRoute,
   ServicesRoute: ServicesRoute,
   AdminRoute: AdminRouteWithChildren,
 }

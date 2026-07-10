@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useLang } from "../lib/LanguageContext";
 import { t } from "../lib/translations";
 import { BARANGAY } from "../lib/data";
+import HeroParticles from "./HeroParticles";
 
 export default function Hero() {
   const { lang } = useLang();
@@ -11,6 +12,7 @@ export default function Hero() {
       id="home"
       className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-primary via-primary-dark to-[#001a5e] overflow-hidden"
     >
+      <HeroParticles />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(252,209,22,0.08),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(206,17,38,0.06),transparent_50%)]" />
 
       <div className="absolute top-20 right-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
@@ -37,7 +39,7 @@ export default function Hero() {
 
           <div className="flex flex-wrap gap-3 animate-fade-in-up">
             <Link
-              to="/request"
+              to="/services"
               className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-sm font-bold text-neutral-900 shadow-lg shadow-accent/25 hover:bg-yellow-300 hover:shadow-xl hover:shadow-accent/40 transition-all active:scale-[0.97]"
             >
               <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,17 +48,8 @@ export default function Hero() {
               {t.heroRequestDoc[lang]}
             </Link>
             <Link
-              to="/report"
-              className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm border border-white/20 hover:bg-white/25 hover:shadow-lg transition-all active:scale-[0.97]"
-            >
-              <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              {t.heroReportConcern[lang]}
-            </Link>
-            <Link
               to="/announcements"
-              className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm border border-white/15 hover:bg-white/20 transition-all active:scale-[0.97]"
+              className="inline-flex items-center gap-2 rounded-xl bg-white/15 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm border border-white/20 hover:bg-white/25 hover:shadow-lg transition-all active:scale-[0.97]"
             >
               <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />

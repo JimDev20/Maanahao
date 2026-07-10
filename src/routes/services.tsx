@@ -98,7 +98,7 @@ function ServicesPage() {
                         </span>
                       </div>
                       <Link
-                        to="/request"
+                        to="/admin"
                         className="inline-flex items-center gap-1 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark transition-all active:scale-[0.97]"
                       >
                         {t.servicesRequest[lang]}
