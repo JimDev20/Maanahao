@@ -5,6 +5,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { LangProvider } from "../lib/LanguageContext";
+import { AuthProvider } from "../lib/auth/AuthContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BackToTop from "../components/BackToTop";
@@ -40,14 +41,16 @@ function RootLayout() {
         <HeadContent />
       </head>
       <body className="font-sans text-neutral-900 bg-neutral-50 antialiased">
-        <LangProvider>
-          <Header />
-          <main>
-            <Outlet />
-          </main>
-          <Footer />
-          <BackToTop />
-        </LangProvider>
+        <AuthProvider>
+          <LangProvider>
+            <Header />
+            <main>
+              <Outlet />
+            </main>
+            <Footer />
+            <BackToTop />
+          </LangProvider>
+        </AuthProvider>
         <Scripts />
       </body>
     </html>
