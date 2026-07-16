@@ -4,15 +4,12 @@ import { useAuth } from "../lib/auth/AuthContext";
 import { useLang } from "../lib/LanguageContext";
 import OfflineIndicator from "../components/OfflineIndicator";
 
-const adminLinks = [
-  { key: "dashboard", href: "/admin", icon: "📊", labelEn: "Dashboard", labelFil: "Dashboard" },
-  { key: "residents", href: "/admin/residents", icon: "👥", labelEn: "Residents", labelFil: "Mga Residente" },
-  { key: "documents", href: "/admin/documents", icon: "📄", labelEn: "Documents", labelFil: "Mga Dokumento" },
-  { key: "blotter", href: "/admin/blotter", icon: "📋", labelEn: "Blotter", labelFil: "Blotter" },
-  { key: "finance", href: "/admin/finance", icon: "💰", labelEn: "Finance", labelFil: "Pinansyal" },
+const siteAdminLinks = [
+  { key: "site-editor", href: "/site-admin/site-editor", icon: "✏️", labelEn: "Site Editor", labelFil: "Site Editor" },
+  { key: "monitoring", href: "/site-admin/monitoring", icon: "🖥️", labelEn: "Monitor", labelFil: "Monitor" },
 ];
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default function SiteAdminLayout({ children }: { children: ReactNode }) {
   const { user, logout } = useAuth();
   const { lang } = useLang();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,46 +26,36 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         }`}
       >
         <div className="p-4 border-b border-neutral-200">
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/admin" className="flex items-center gap-3">
             <div className="size-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs leading-none">
               <span className="text-center">BRGY<br />MN</span>
             </div>
             <div>
               <span className="block font-bold text-sm text-neutral-900">Barangay Maanahao</span>
-              <span className="block text-xs text-neutral-500">Admin Panel</span>
+              <span className="block text-xs text-neutral-500">Site Administration</span>
             </div>
           </Link>
         </div>
 
         <nav className="p-3 flex-1">
-          {adminLinks.map((link) => (
+          {siteAdminLinks.map((link) => (
             <Link
               key={link.key}
               to={link.href}
               onClick={() => setSidebarOpen(false)}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-neutral-700 hover:bg-primary-light hover:text-primary transition-colors mb-1"
               activeProps={{ className: "bg-primary-light text-primary" }}
-              activeOptions={{ exact: link.key === "dashboard" }}
             >
               <span className="text-lg">{link.icon}</span>
               {lang === "en" ? link.labelEn : link.labelFil}
             </Link>
           ))}
-          <hr className="my-2 border-neutral-200" />
-          <Link
-            to="/site-admin/site-editor"
-            onClick={() => setSidebarOpen(false)}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-neutral-700 hover:bg-primary-light hover:text-primary transition-colors mb-1"
-          >
-            <span className="text-lg">⚙️</span>
-            {lang === "en" ? "Site Settings" : "Mga Setting ng Site"}
-          </Link>
         </nav>
 
         <div className="p-4 border-t border-neutral-200">
-          <Link to="/" className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-neutral-500 hover:bg-neutral-100 transition-colors mb-2">
-            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-            {lang === "en" ? "View Website" : "Tignan ang Website"}
+          <Link to="/admin" className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium text-neutral-500 hover:bg-neutral-100 transition-colors mb-2">
+            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            {lang === "en" ? "Back to Admin" : "Bumalik sa Admin"}
           </Link>
           <div className="flex items-center gap-2 px-3 py-2 text-sm">
             <div className="size-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">

@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SiteAdminRouteImport } from './routes/site-admin'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as AnnouncementsRouteImport } from './routes/announcements'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -16,13 +17,18 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as AdminSiteEditorRouteImport } from './routes/admin/site-editor'
+import { Route as SiteAdminSiteEditorRouteImport } from './routes/site-admin/site-editor'
+import { Route as SiteAdminMonitoringRouteImport } from './routes/site-admin/monitoring'
 import { Route as AdminResidentsRouteImport } from './routes/admin/residents'
-import { Route as AdminMonitoringRouteImport } from './routes/admin/monitoring'
 import { Route as AdminFinanceRouteImport } from './routes/admin/finance'
 import { Route as AdminDocumentsRouteImport } from './routes/admin/documents'
 import { Route as AdminBlotterRouteImport } from './routes/admin/blotter'
 
+const SiteAdminRoute = SiteAdminRouteImport.update({
+  id: '/site-admin',
+  path: '/site-admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -58,19 +64,19 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminSiteEditorRoute = AdminSiteEditorRouteImport.update({
+const SiteAdminSiteEditorRoute = SiteAdminSiteEditorRouteImport.update({
   id: '/site-editor',
   path: '/site-editor',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => SiteAdminRoute,
+} as any)
+const SiteAdminMonitoringRoute = SiteAdminMonitoringRouteImport.update({
+  id: '/monitoring',
+  path: '/monitoring',
+  getParentRoute: () => SiteAdminRoute,
 } as any)
 const AdminResidentsRoute = AdminResidentsRouteImport.update({
   id: '/residents',
   path: '/residents',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminMonitoringRoute = AdminMonitoringRouteImport.update({
-  id: '/monitoring',
-  path: '/monitoring',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminFinanceRoute = AdminFinanceRouteImport.update({
@@ -96,12 +102,13 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/announcements': typeof AnnouncementsRoute
   '/services': typeof ServicesRoute
+  '/site-admin': typeof SiteAdminRouteWithChildren
   '/admin/blotter': typeof AdminBlotterRoute
   '/admin/documents': typeof AdminDocumentsRoute
   '/admin/finance': typeof AdminFinanceRoute
-  '/admin/monitoring': typeof AdminMonitoringRoute
   '/admin/residents': typeof AdminResidentsRoute
-  '/admin/site-editor': typeof AdminSiteEditorRoute
+  '/site-admin/monitoring': typeof SiteAdminMonitoringRoute
+  '/site-admin/site-editor': typeof SiteAdminSiteEditorRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -110,12 +117,13 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/announcements': typeof AnnouncementsRoute
   '/services': typeof ServicesRoute
+  '/site-admin': typeof SiteAdminRouteWithChildren
   '/admin/blotter': typeof AdminBlotterRoute
   '/admin/documents': typeof AdminDocumentsRoute
   '/admin/finance': typeof AdminFinanceRoute
-  '/admin/monitoring': typeof AdminMonitoringRoute
   '/admin/residents': typeof AdminResidentsRoute
-  '/admin/site-editor': typeof AdminSiteEditorRoute
+  '/site-admin/monitoring': typeof SiteAdminMonitoringRoute
+  '/site-admin/site-editor': typeof SiteAdminSiteEditorRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -126,12 +134,13 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/announcements': typeof AnnouncementsRoute
   '/services': typeof ServicesRoute
+  '/site-admin': typeof SiteAdminRouteWithChildren
   '/admin/blotter': typeof AdminBlotterRoute
   '/admin/documents': typeof AdminDocumentsRoute
   '/admin/finance': typeof AdminFinanceRoute
-  '/admin/monitoring': typeof AdminMonitoringRoute
   '/admin/residents': typeof AdminResidentsRoute
-  '/admin/site-editor': typeof AdminSiteEditorRoute
+  '/site-admin/monitoring': typeof SiteAdminMonitoringRoute
+  '/site-admin/site-editor': typeof SiteAdminSiteEditorRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -143,12 +152,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/announcements'
     | '/services'
+    | '/site-admin'
     | '/admin/blotter'
     | '/admin/documents'
     | '/admin/finance'
-    | '/admin/monitoring'
     | '/admin/residents'
-    | '/admin/site-editor'
+    | '/site-admin/monitoring'
+    | '/site-admin/site-editor'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -157,12 +167,13 @@ export interface FileRouteTypes {
     | '/about'
     | '/announcements'
     | '/services'
+    | '/site-admin'
     | '/admin/blotter'
     | '/admin/documents'
     | '/admin/finance'
-    | '/admin/monitoring'
     | '/admin/residents'
-    | '/admin/site-editor'
+    | '/site-admin/monitoring'
+    | '/site-admin/site-editor'
     | '/admin'
   id:
     | '__root__'
@@ -172,12 +183,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/announcements'
     | '/services'
+    | '/site-admin'
     | '/admin/blotter'
     | '/admin/documents'
     | '/admin/finance'
-    | '/admin/monitoring'
     | '/admin/residents'
-    | '/admin/site-editor'
+    | '/site-admin/monitoring'
+    | '/site-admin/site-editor'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -188,10 +200,18 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AnnouncementsRoute: typeof AnnouncementsRoute
   ServicesRoute: typeof ServicesRoute
+  SiteAdminRoute: typeof SiteAdminRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/site-admin': {
+      id: '/site-admin'
+      path: '/site-admin'
+      fullPath: '/site-admin'
+      preLoaderRoute: typeof SiteAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -241,25 +261,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/site-editor': {
-      id: '/admin/site-editor'
+    '/site-admin/site-editor': {
+      id: '/site-admin/site-editor'
       path: '/site-editor'
-      fullPath: '/admin/site-editor'
-      preLoaderRoute: typeof AdminSiteEditorRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/site-admin/site-editor'
+      preLoaderRoute: typeof SiteAdminSiteEditorRouteImport
+      parentRoute: typeof SiteAdminRoute
+    }
+    '/site-admin/monitoring': {
+      id: '/site-admin/monitoring'
+      path: '/monitoring'
+      fullPath: '/site-admin/monitoring'
+      preLoaderRoute: typeof SiteAdminMonitoringRouteImport
+      parentRoute: typeof SiteAdminRoute
     }
     '/admin/residents': {
       id: '/admin/residents'
       path: '/residents'
       fullPath: '/admin/residents'
       preLoaderRoute: typeof AdminResidentsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/monitoring': {
-      id: '/admin/monitoring'
-      path: '/monitoring'
-      fullPath: '/admin/monitoring'
-      preLoaderRoute: typeof AdminMonitoringRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/finance': {
@@ -290,9 +310,7 @@ interface AdminRouteChildren {
   AdminBlotterRoute: typeof AdminBlotterRoute
   AdminDocumentsRoute: typeof AdminDocumentsRoute
   AdminFinanceRoute: typeof AdminFinanceRoute
-  AdminMonitoringRoute: typeof AdminMonitoringRoute
   AdminResidentsRoute: typeof AdminResidentsRoute
-  AdminSiteEditorRoute: typeof AdminSiteEditorRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -300,13 +318,25 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminBlotterRoute: AdminBlotterRoute,
   AdminDocumentsRoute: AdminDocumentsRoute,
   AdminFinanceRoute: AdminFinanceRoute,
-  AdminMonitoringRoute: AdminMonitoringRoute,
   AdminResidentsRoute: AdminResidentsRoute,
-  AdminSiteEditorRoute: AdminSiteEditorRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface SiteAdminRouteChildren {
+  SiteAdminMonitoringRoute: typeof SiteAdminMonitoringRoute
+  SiteAdminSiteEditorRoute: typeof SiteAdminSiteEditorRoute
+}
+
+const SiteAdminRouteChildren: SiteAdminRouteChildren = {
+  SiteAdminMonitoringRoute: SiteAdminMonitoringRoute,
+  SiteAdminSiteEditorRoute: SiteAdminSiteEditorRoute,
+}
+
+const SiteAdminRouteWithChildren = SiteAdminRoute._addFileChildren(
+  SiteAdminRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -315,16 +345,8 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AnnouncementsRoute: AnnouncementsRoute,
   ServicesRoute: ServicesRoute,
+  SiteAdminRoute: SiteAdminRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

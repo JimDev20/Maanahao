@@ -40,7 +40,7 @@ export const Route = createRootRoute({
 
 function RootLayout() {
   const matches = useMatches();
-  const isAdmin = matches.some((m) => m.pathname.startsWith("/admin"));
+  const isAdmin = matches.some((m) => m.pathname.startsWith("/admin") || m.pathname.startsWith("/site-admin"));
 
   useEffect(() => {
     const stop = startAutoSync();
