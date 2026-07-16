@@ -113,6 +113,16 @@ export async function upsertSiteSection(
   data: Partial<SiteContent>
 ): Promise<SiteContent> {
   const pb = getPocketBase();
+  const saveData: Record<string, unknown> = {
+    section,
+    title: data.title || "",
+    subtitle: data.subtitle || "",
+    body: data.body || "",
+    image_url: data.image_url || "",
+    button_text: data.button_text || "",
+    button_link: data.button_link || "",
+    meta: data.meta || {},
+  };
   try {
     const existing = await handleApiCall(
       pb.collection("site_content").getList(1, 1, { filter: `section = "${section}"` })
@@ -121,17 +131,14 @@ export async function upsertSiteSection(
       return (await executeWrite(
         "update",
         "site_content",
-        data as Record<string, unknown>,
+        saveData,
         existing.items[0].id
       )) as unknown as SiteContent;
     }
   } catch {
     // fall through to create
   }
-  return (await executeWrite("create", "site_content", {
-    ...data,
-    section,
-  } as Record<string, unknown>)) as unknown as SiteContent;
+  return (await executeWrite("create", "site_content", saveData)) as unknown as SiteContent;
 }
 
 export async function seedDefaultContent(): Promise<void> {

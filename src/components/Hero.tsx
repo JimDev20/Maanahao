@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
 import { useLang } from "../lib/LanguageContext";
 import { t } from "../lib/translations";
@@ -10,9 +10,26 @@ export default function Hero() {
   const { lang } = useLang();
   const [content, setContent] = useState<SiteContent | null>(null);
 
-  useEffect(() => {
+  const loadContent = useCallback(() => {
     getSiteSection("hero").then(setContent).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    loadContent();
+  }, [loadContent]);
+
+  useEffect(() => {
+    function handleFocus() {
+      loadContent();
+    }
+    window.addEventListener("focus", handleFocus);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") loadContent();
+    });
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [loadContent]);
 
   const title = content?.title || BARANGAY.name;
   const tagline = content?.subtitle || t.heroTagline[lang];
