@@ -34,6 +34,7 @@ export default function BlotterPage() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
     complainant_name: "",
@@ -66,6 +67,7 @@ export default function BlotterPage() {
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError("");
     try {
       const blotterNumber = `BLT-${Date.now().toString(36).toUpperCase()}`;
       await createBlotterRecord({
@@ -78,6 +80,7 @@ export default function BlotterPage() {
       loadRecords();
     } catch (err) {
       console.error("Failed to create blotter record:", err);
+      setError(lang === "en" ? "Failed to create record. The server may be unreachable." : "Nabigo ang paglikha ng rekord. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -85,6 +88,7 @@ export default function BlotterPage() {
 
   const handleStatusUpdate = async (id: string, status: Blotter["status"]) => {
     setSaving(true);
+    setError("");
     try {
       await updateBlotterStatus(id, status);
       loadRecords();
@@ -93,6 +97,7 @@ export default function BlotterPage() {
       }
     } catch (err) {
       console.error("Failed to update status:", err);
+      setError(lang === "en" ? "Failed to update status. The server may be unreachable." : "Nabigo ang pag-update ng status. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -118,6 +123,15 @@ export default function BlotterPage() {
           </button>
         )}
       </div>
+
+      {error && (
+        <div className="mb-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 flex items-center justify-between">
+          <span>{error}</span>
+          <button onClick={() => setError("")} className="text-red-400 hover:text-red-600 ml-2">
+            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+      )}
 
       {view === "list" && (
         <>

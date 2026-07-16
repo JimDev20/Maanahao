@@ -34,6 +34,7 @@ export default function DocumentsPage() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
     requestor_name: "",
@@ -63,6 +64,7 @@ export default function DocumentsPage() {
 
   const handleStatusUpdate = async (id: string, status: DocumentRequest["status"]) => {
     setSaving(true);
+    setError("");
     try {
       await updateDocumentStatus(id, status);
       loadDocuments();
@@ -71,6 +73,7 @@ export default function DocumentsPage() {
       }
     } catch (err) {
       console.error("Failed to update status:", err);
+      setError(lang === "en" ? "Failed to update status. The server may be unreachable." : "Nabigo ang pag-update ng status. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -79,6 +82,7 @@ export default function DocumentsPage() {
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError("");
     try {
       const requestNumber = `DOC-${Date.now().toString(36).toUpperCase()}`;
       await createDocumentRequest({
@@ -92,6 +96,7 @@ export default function DocumentsPage() {
       loadDocuments();
     } catch (err) {
       console.error("Failed to create document request:", err);
+      setError(lang === "en" ? "Failed to create request. The server may be unreachable." : "Nabigo ang paglikha ng request. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -117,6 +122,15 @@ export default function DocumentsPage() {
           </button>
         )}
       </div>
+
+      {error && (
+        <div className="mb-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 flex items-center justify-between">
+          <span>{error}</span>
+          <button onClick={() => setError("")} className="text-red-400 hover:text-red-600 ml-2">
+            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+      )}
 
       {view === "list" && (
         <>

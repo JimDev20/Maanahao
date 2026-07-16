@@ -64,13 +64,19 @@ export default function FinancePage() {
   const totalDisbursements = disbursements.reduce((s, d) => s + d.amount, 0);
   const balance = totalRevenue - totalDisbursements;
 
+  const [error, setError] = useState("");
+
   const handleCreateAppropriation = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError("");
     try {
       await createAppropriation({ ...appForm, expense_class: appForm.expense_class as "PS" | "MOOE" | "CO", fiscal_year: fiscalYear });
       setShowForm(false);
       loadAll();
+    } catch (err) {
+      console.error("Failed to create appropriation:", err);
+      setError(lang === "en" ? "Failed to save. The server may be unreachable." : "Nabigo ang pag-save. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -79,10 +85,14 @@ export default function FinancePage() {
   const handleCreateRevenue = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError("");
     try {
       await createRevenue({ ...revForm, fiscal_year: fiscalYear });
       setShowForm(false);
       loadAll();
+    } catch (err) {
+      console.error("Failed to create revenue:", err);
+      setError(lang === "en" ? "Failed to save. The server may be unreachable." : "Nabigo ang pag-save. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -91,10 +101,14 @@ export default function FinancePage() {
   const handleCreateDisbursement = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError("");
     try {
       await createDisbursement({ ...disbForm, fiscal_year: fiscalYear });
       setShowForm(false);
       loadAll();
+    } catch (err) {
+      console.error("Failed to create disbursement:", err);
+      setError(lang === "en" ? "Failed to save. The server may be unreachable." : "Nabigo ang pag-save. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -103,10 +117,14 @@ export default function FinancePage() {
   const handleCreateFundSource = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError("");
     try {
       await createFundSource({ ...fsForm, fiscal_year: fiscalYear });
       setShowForm(false);
       loadAll();
+    } catch (err) {
+      console.error("Failed to create fund source:", err);
+      setError(lang === "en" ? "Failed to save. The server may be unreachable." : "Nabigo ang pag-save. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -114,6 +132,7 @@ export default function FinancePage() {
 
   const handleDelete = async (type: string, id: string) => {
     if (!confirm(lang === "en" ? "Delete this item?" : "I-delete ang item na ito?")) return;
+    setError("");
     try {
       if (type === "appropriation") await deleteAppropriation(id);
       if (type === "revenue") await deleteRevenue(id);
@@ -122,6 +141,7 @@ export default function FinancePage() {
       loadAll();
     } catch (err) {
       console.error("Delete failed:", err);
+      setError(lang === "en" ? "Failed to delete. The server may be unreachable." : "Nabigo ang pag-delete. Maaaring hindi maabot ang server.");
     }
   };
 
@@ -162,6 +182,15 @@ export default function FinancePage() {
           </button>
         ))}
       </div>
+
+      {error && (
+        <div className="mb-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 flex items-center justify-between">
+          <span>{error}</span>
+          <button onClick={() => setError("")} className="text-red-400 hover:text-red-600 ml-2">
+            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+      )}
 
       {loading ? (
         <div className="space-y-4">

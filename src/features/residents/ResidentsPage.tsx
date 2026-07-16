@@ -29,6 +29,7 @@ export default function ResidentsPage() {
     is_migrant: false,
   });
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const loadResidents = useCallback(async () => {
     setLoading(true);
@@ -51,6 +52,7 @@ export default function ResidentsPage() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+    setError("");
     try {
       if (editingResident) {
         await updateResident(editingResident.id, formData);
@@ -62,6 +64,7 @@ export default function ResidentsPage() {
       loadResidents();
     } catch (err) {
       console.error("Failed to save resident:", err);
+      setError(lang === "en" ? "Failed to save. The server may be unreachable." : "Nabigo ang pag-save. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -69,11 +72,13 @@ export default function ResidentsPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm(lang === "en" ? "Delete this resident?" : "I-delete ang residenteng ito?")) return;
+    setError("");
     try {
       await deleteResident(id);
       loadResidents();
     } catch (err) {
       console.error("Failed to delete resident:", err);
+      setError(lang === "en" ? "Failed to delete. The server may be unreachable." : "Nabigo ang pag-delete. Maaaring hindi maabot ang server.");
     }
   };
 
@@ -106,6 +111,15 @@ export default function ResidentsPage() {
           </button>
         )}
       </div>
+
+      {error && (
+        <div className="mb-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 flex items-center justify-between">
+          <span>{error}</span>
+          <button onClick={() => setError("")} className="text-red-400 hover:text-red-600 ml-2">
+            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+      )}
 
       {view === "list" && (
         <>

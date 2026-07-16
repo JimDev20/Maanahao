@@ -23,6 +23,7 @@ export default function SiteEditorPage() {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function load() {
@@ -67,6 +68,7 @@ export default function SiteEditorPage() {
 
   async function handleSave() {
     setSaving(true);
+    setError("");
     try {
       await upsertSiteSection(activeSection, formData);
       const updated = await getAllSiteSections();
@@ -75,6 +77,7 @@ export default function SiteEditorPage() {
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
       console.error("Failed to save:", err);
+      setError(lang === "en" ? "Failed to save. The server may be unreachable." : "Nabigo ang pag-save. Maaaring hindi maabot ang server.");
     } finally {
       setSaving(false);
     }
@@ -281,6 +284,9 @@ export default function SiteEditorPage() {
                 >
                   {saving ? "Saving..." : "Save Changes"}
                 </button>
+                {error && (
+                  <span className="text-sm text-red-600 font-medium">{error}</span>
+                )}
                 {saved && (
                   <span className="text-sm text-green-600 font-medium">Saved!</span>
                 )}

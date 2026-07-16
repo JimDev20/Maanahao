@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { useLang } from "../LanguageContext";
+import { ApiError } from "../../api/errorHandler";
 import ScrollReveal from "../../components/ScrollReveal";
 
 export default function LoginPage() {
@@ -18,11 +19,19 @@ export default function LoginPage() {
     try {
       await login(email, password);
     } catch (err) {
-      setError(
-        lang === "en"
-          ? "Invalid email or password"
-          : "Hindi tamang email o password"
-      );
+      if (err instanceof ApiError && err.status === 0) {
+        setError(
+          lang === "en"
+            ? "Cannot connect to server. Please check if the server is running."
+            : "Hindi ma-connect sa server. Mangyaring tingnan kung naka-on ang server."
+        );
+      } else {
+        setError(
+          lang === "en"
+            ? "Invalid email or password"
+            : "Hindi tamang email o password"
+        );
+      }
     } finally {
       setLoading(false);
     }
