@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLang } from "../../lib/LanguageContext";
 import {
   getAllSiteSections,
@@ -6,17 +6,24 @@ import {
   seedDefaultContent,
   type SiteContent,
 } from "../../api/siteContent";
+import {
+  uploadSiteImage,
+  getSiteImages,
+  deleteSiteImage,
+  type UploadedImage,
+} from "../../api/uploads";
 
 const SECTIONS = [
   { key: "hero", icon: "🏠", labelEn: "Hero / Cover", labelFil: "Hero / Cover" },
   { key: "footer", icon: "📎", labelEn: "Footer", labelFil: "Footer" },
   { key: "about", icon: "ℹ️", labelEn: "About", labelFil: "Tungkol" },
   { key: "services", icon: "⚙️", labelEn: "Services", labelFil: "Serbisyo" },
-  { key: "announcements", icon: "📢", labelEn: "Announcements", labelFil: "Anunsyo" },
+  { key: "announcements", icon: "📢", labelEn: "Announcements", labelFil: "Annunsyo" },
 ];
 
 export default function SiteEditorPage() {
   const { lang } = useLang();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [sections, setSections] = useState<SiteContent[]>([]);
   const [activeSection, setActiveSection] = useState("hero");
   const [formData, setFormData] = useState<Partial<SiteContent>>({});
@@ -24,6 +31,9 @@ export default function SiteEditorPage() {
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
+  const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [loadError, setLoadError] = useState("");
 
   useEffect(() => {
     async function load() {
@@ -38,9 +48,15 @@ export default function SiteEditorPage() {
       } finally {
         setLoading(false);
       }
+      try {
+        const images = await getSiteImages();
+        setUploadedImages(images);
+      } catch {
+        setLoadError(lang === "en" ? "Failed to load images" : "Nabigo ang pag-load ng mga larawan");
+      }
     }
     load();
-  }, []);
+  }, [lang]);
 
   function handleSectionChange(key: string) {
     setActiveSection(key);
@@ -64,6 +80,42 @@ export default function SiteEditorPage() {
       meta: { ...(prev.meta || {}), [key]: value },
     }));
     setSaved(false);
+  }
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setError("");
+    try {
+      const uploaded = await uploadSiteImage(file, file.name);
+      setUploadedImages((prev) => [uploaded, ...prev]);
+      setFormData((prev) => ({ ...prev, image_url: uploaded.url }));
+      setSaved(false);
+    } catch (err) {
+      console.error("Failed to upload image:", err);
+      setError(lang === "en" ? "Failed to upload image." : "Nabigo ang pag-upload ng larawan.");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
+  function handleSelectImage(url: string) {
+    setFormData((prev) => ({ ...prev, image_url: url }));
+    setSaved(false);
+  }
+
+  async function handleDeleteImage(id: string) {
+    try {
+      await deleteSiteImage(id);
+      setUploadedImages((prev) => prev.filter((img) => img.id !== id));
+      if (formData.image_url?.includes(id)) {
+        setFormData((prev) => ({ ...prev, image_url: "" }));
+      }
+    } catch (err) {
+      console.error("Failed to delete image:", err);
+    }
   }
 
   async function handleSave() {
@@ -178,20 +230,58 @@ export default function SiteEditorPage() {
                 />
               </div>
 
-              {/* Image URL */}
+              {/* Image */}
               <div>
                 <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-                  Cover / Background Image URL
+                  Cover / Background Image
                 </label>
+
+                {/* URL Input */}
                 <input
                   type="url"
                   value={formData.image_url || ""}
                   onChange={(e) => updateField("image_url", e.target.value)}
                   className="w-full rounded-xl border border-neutral-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                  placeholder="https://example.com/image.jpg"
+                  placeholder="https://example.com/image.jpg or paste a URL"
                 />
+
+                {/* Upload Button */}
+                <div className="mt-3 flex items-center gap-3">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 px-4 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors disabled:opacity-50"
+                  >
+                    {uploading ? (
+                      <>
+                        <svg className="size-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        {lang === "en" ? "Uploading..." : "Nag-upload..."}
+                      </>
+                    ) : (
+                      <>
+                        <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {lang === "en" ? "Upload Image" : "Mag-upload ng Larawan"}
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Current Image Preview */}
                 {formData.image_url && (
-                  <div className="mt-3 rounded-xl overflow-hidden border border-neutral-200 max-h-48">
+                  <div className="mt-3 relative rounded-xl overflow-hidden border border-neutral-200 max-h-48">
                     <img
                       src={formData.image_url}
                       alt="Preview"
@@ -200,6 +290,53 @@ export default function SiteEditorPage() {
                         (e.target as HTMLImageElement).style.display = "none";
                       }}
                     />
+                  </div>
+                )}
+
+                {/* Uploaded Images Gallery */}
+                {uploadedImages.length > 0 && (
+                  <div className="mt-4 border-t border-neutral-200 pt-4">
+                    <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-3">
+                      {lang === "en" ? "Uploaded Images" : "Mga Na-upload na Larawan"}
+                    </p>
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {uploadedImages.map((img) => (
+                        <div
+                          key={img.id}
+                          className={`relative group rounded-lg overflow-hidden border-2 cursor-pointer aspect-square ${
+                            formData.image_url === img.url
+                              ? "border-primary ring-2 ring-primary/20"
+                              : "border-neutral-200 hover:border-primary/50"
+                          }`}
+                          onClick={() => handleSelectImage(img.url)}
+                        >
+                          <img
+                            src={img.url}
+                            alt={img.label}
+                            className="w-full h-full object-cover"
+                          />
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteImage(img.id);
+                            }}
+                            className="absolute top-1 right-1 size-6 rounded-full bg-red-500 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <svg className="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                          {formData.image_url === img.url && (
+                            <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
+                              <svg className="size-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
