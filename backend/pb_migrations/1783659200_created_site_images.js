@@ -1,8 +1,8 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((app) => {
   const collection = new Collection({
-    "createRule": "",
-    "deleteRule": "",
+    "createRule": "*",
+    "deleteRule": "*",
     "fields": [
       {
         "autogeneratePattern": "[a-z0-9]{15}",
@@ -43,12 +43,12 @@ migrate((app) => {
     ],
     "id": "pbc_2847561930",
     "indexes": [],
-    "listRule": "",
+    "listRule": "*",
     "name": "site_images",
     "system": false,
     "type": "base",
-    "updateRule": "",
-    "viewRule": ""
+    "updateRule": "*",
+    "viewRule": "*"
   });
 
   return app.save(collection);

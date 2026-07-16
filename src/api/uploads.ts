@@ -13,8 +13,8 @@ export async function uploadSiteImage(file: File, label?: string): Promise<Uploa
   if (label) formData.append("label", label);
 
   const record = await pb.collection("site_images").create(formData);
-  const fileName = record.image;
-  const url = `${getApiUrl()}/api/files/site_images/${record.id}/${fileName}`;
+  const fileName = record.image as string;
+  const url = `${getApiUrl()}/api/files/${record.collectionId}/${record.id}/${fileName}`;
 
   return {
     id: record.id as string,
@@ -31,7 +31,7 @@ export async function getSiteImages(): Promise<UploadedImage[]> {
       const fileName = item.image as string;
       return {
         id: item.id as string,
-        url: `${getApiUrl()}/api/files/site_images/${item.id}/${fileName}`,
+        url: `${getApiUrl()}/api/files/${item.collectionId}/${item.id}/${fileName}`,
         label: (item.label as string) || fileName,
       };
     });
